@@ -43,13 +43,14 @@ BASE = ("https://github.com/ajdavis/driver-performance-test-data/"
 NUM_ITERATIONS = 100
 MAX_ITERATION_TIME = 300
 NUM_DOCS = 10000
-
+fast_perf_tests = False
 
 # Shortcut for testing.
 if os.environ.get('FAST_PERF_TESTS'):
     NUM_ITERATIONS = 1
     MAX_ITERATION_TIME = 30
     NUM_DOCS = 10
+    fast_perf_tests = True
 
 
 def download_test_data():
@@ -314,6 +315,9 @@ class TestJsonMultiImport(_PerformanceTest):
         super().setUp()
         ldjson_path = join(TEST_PATH, 'parallel', 'ldjson_multi')
         self.files = [join(ldjson_path, s) for s in os.listdir(ldjson_path)]
+        if fast_perf_tests:
+            self.files = self.files[:10]
+
         self.corpus = self.cx.perftest.corpus
 
     def before(self):
@@ -331,6 +335,9 @@ class TestJsonMultiExport(_PerformanceTest):
 
         ldjson_path = join(TEST_PATH, 'parallel', 'ldjson_multi')
         self.files = [join(ldjson_path, s) for s in os.listdir(ldjson_path)]
+        if fast_perf_tests:
+            self.files = self.files[:10]
+
         self.corpus = self.cx.perftest.corpus
         self.io_loop.run_sync(lambda: insert_json_files(self.corpus,
                                                         self.files))
