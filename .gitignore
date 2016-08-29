@@ -1,0 +1,9 @@
+*~
+*#*
+.DS*
+*.pyc
+*.pyd
+*.egg
+.tox
+.idea/
+performance_testdata
