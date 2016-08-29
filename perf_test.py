@@ -29,15 +29,8 @@ from motor import motor_tornado
 from test import tornado_tests, unittest
 from test.test_environment import env
 
-try:
-    from urllib.parse import urljoin
-except ImportError:
-    from urlparse import urljoin
-
-try:
-    from urllib.request import urlretrieve
-except ImportError:
-    from urllib import urlretrieve
+from urllib.parse import urljoin
+from urllib.request import urlretrieve
 
 
 TEST_PATH = join(
